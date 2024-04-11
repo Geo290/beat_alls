@@ -1,10 +1,16 @@
 const { Sequelize } = require('sequelize');
+const env = require('./config.js');
 
-const db = new Sequelize('beat_alls', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql',
-  port: 3306
-});
+const db = new Sequelize(
+  `${env.DB_DATABASE}`, 
+  `${env.DB_USER}`, 
+  `${env.DB_PASSWORD}`, 
+  {
+    host: `${env.DB_HOST}`,
+    dialect: 'mysql',
+    port: `${env.DB_PORT}`
+  }
+);
 
 async function authenticate() {
   try {
