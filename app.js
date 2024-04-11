@@ -41,7 +41,7 @@ app.set('view engine', 'ejs');//para setiar el ejs y que se corra cada que se ej
 //Llama al archivo rutas.js
 app.use(rutas);
 
-app.listen(env.PORT, ()=>{ //contiene una funcion para escuchar el puerto, donde manda como mensaje el numero del puerto 
+app.listen(port, ()=>{ //contiene una funcion para escuchar el puerto, donde manda como mensaje el numero del puerto 
     console.log(`Listening on port ${port}`);
 });
 
