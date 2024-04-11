@@ -1,0 +1,77 @@
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="/assets/images/Imagen2.png">
+    <title>Panel</title>
+    <style>
+        body {
+          background-image: linear-gradient(to top right, rgb(174, 0, 255) ,  rgb(65, 65, 225));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+       
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button-container ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .button-container li {
+            margin-bottom: 10px;
+        }
+
+        .button-container button {
+            background-color: transparent;
+            border: transparent;
+            
+            padding: 10px 20px;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #00a3ee;
+           
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <img src="/assets/images/LOGO5.png" alt="Logo" height="300" width="300">
+    </ul>
+    <ul>
+        <h1>Bienvenid@, <%- nombre %></h1>
+    </ul>
+    
+    <div class="button-container-wrapper">
+        <div class="button-container">
+                <button type="button" style="border-radius: 15px;"><a href="/" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Menu principal</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/registroProveedores" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Registar nuevo proveedor</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/proveedoresRegistrados" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Proveedores registrados</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/productos" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Productos</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/registroProductos" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Registrar productos</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/productosRegistrados" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Productos registrados</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/clientesRegistrados" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Clientes registrados</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/pedidosFinalizados" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Historial de pedidos</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/pedidosEnCurso" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Pedidos en curso</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/logsClientes" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Logs clientes</a></button>
+                <button type="button" style="border-radius: 15px;"><a href="/logout" style="text-decoration: none; color:rgb(255, 255, 255); font-family: rockwell;">Salir</a></button>
+        </div>
+    </div>
+</body>
+</html>

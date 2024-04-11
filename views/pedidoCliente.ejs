@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="/assets/images/LOGO5.png">
+    <link rel="stylesheet" href="/assets/css/formulario.css">
+    <title><%= titulo %></title> 
+</head>
+<header>
+    <%- include('./layout/nav.ejs'); %>
+</header>
+
+<header>
+    <%- include('./layout/diseño.ejs'); %>
+</header>
+
+<header>
+    <%- include('./layout/diseñoPedidoCliente.ejs'); %>
+</header>
+<body>
+<div class="cart-section mt-50 mb-50">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-12">
+				<div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-name">Número de pedido</th>
+                                <th class="product-name">Nombre del producto</th>
+                                <th class="product-name">Descripción</th>
+                                <th class="product-price">Cantidad</th>
+                                <th class="product-quantity">Precio unitario</th>
+                                <th class="product-total">Acumulado</th>
+                                <th class="product-name">Ubicación</th>
+                                <th class="product-name">Fecha</th>
+                                <th class="product-name">Estado del pedido</th>
+                                <th>Resumen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% const numerosPedidosUnicos = new Set(consultar_Pedidos.map(pedido => pedido.No_pedido)); %>
+                            <% numerosPedidosUnicos.forEach(numeroPedido => { %>
+                                <% const pedidosMismoNumero = consultar_Pedidos.filter(pedido => pedido.No_pedido === numeroPedido); %>
+                                <tr class="table-head-row">
+                                    <% if (pedidosMismoNumero.length > 0) { %>
+                                        <td rowspan="<%= pedidosMismoNumero.length %>"><%= numeroPedido %></td>
+                                        <% pedidosMismoNumero.forEach((pedido, index) => { %>
+                                            <% if (index !== 0) { %>
+                                                <tr>
+                                            <% } %>
+                                            <td class="product-name"><%= pedido.Nombre_producto %></td>
+                                            <td class="product-name"><%= pedido.Descripcion %></td>
+                                            <td class="product-name"><%= pedido.Cantidad_producto %></td>
+                                            <td class="product-price"><%= pedido.Precio_unitario_producto %></td>
+                                            <td class="product-quantity"><%= pedido.Precio_total_productos %></td>
+                                            <td class="product-total"><%= pedido.Ubicacion %></td>
+                                            <td class="product-name"><%= pedido.Fecha %></td>
+                                            <td class="product-name"><%= pedido.Estatus %></td>
+                                            <% if (index === 0) { %>
+                                                <td rowspan="<%= pedidosMismoNumero.length %>">
+                                                    Cantidad a pagar: <%= cantidadPagarPorPedido[numeroPedido] %><br>
+                                                    <a onclick="confrimar(<%= numeroPedido %>)" style="text-decoration: none; color: red; width: auto;">Cancelar pedido</a><br><br>
+                                                </td>
+                                            <% } %>
+                                            <% if (index !== 0) { %>
+                                                </tr>
+                                            <% } %>
+                                        <% }); %>
+                                    <% } %>
+                                </tr>
+                            <% }); %>
+                        </tbody>     
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
+        <script>
+        
+            function confrimar(id)
+            {
+                Swal.fire({
+                    title: '¿Quieres cancelar el pedido?',
+                    text: "Si cancelas el pedido no podrás revertir la acción",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Eliminar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location= '/cancelarPedido/'+id;
+                        Swal.fire({
+                            title: "Cancelado!",
+                            text: "El pedido se ha cancelado",
+                            icon: "success",
+                            timer:3000
+                        });
+                        setTimeout(function(){
+                            window.location= '/pedidosEnCurso';
+                        },1000)
+                    }
+                })
+            }
+    </script>
+<footer>
+    <%- include('./layout/footer.ejs'); -%>
+</footer>
+</html>

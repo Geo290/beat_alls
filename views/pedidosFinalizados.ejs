@@ -1,0 +1,89 @@
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="/assets/images/Imagen2.png">
+    <link rel="stylesheet" href="/assets/css/formulario.css">
+    <title><%= titulo %></title> 
+</head>
+<header>
+    <%- include('./layout/nav.ejs'); %>
+</header>
+
+<header>
+    <%- include('./layout/diseño.ejs'); %>
+</header>
+
+<header>
+    <%- include('./layout/diseñoHistorial.ejs'); %>
+</header>
+<body>
+<div class="cart-section mt-50 mb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th>Número de pedido</th>
+                                <th>Nombre del producto</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Acumulado</th>
+                                <th>Fecha</th>
+                                <th>Estado del pedido</th>
+                                <th>Total</th>
+                                <th>Motivo de cancelación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% const numerosPedidosUnicos = new Set(consultar_Historial.map(pedido => pedido.No_pedido)); %>
+                            <% numerosPedidosUnicos.forEach(numeroPedido => { %>
+                                <% const pedidosMismoNumero = consultar_Historial.filter(pedido => pedido.No_pedido === numeroPedido); %>
+                                <tr class="table-head-row">
+                                    <% if (pedidosMismoNumero.length > 0) { %>
+                                        <td rowspan="<%= pedidosMismoNumero.length %>"><%= numeroPedido %></td>
+                                        <% pedidosMismoNumero.forEach((pedido, index) => { %>
+                                            <% if (index !== 0) { %>
+                                                <tr class="table-head-row">
+                                            <% } %>
+                                            <td><%= pedido.Nombre_producto %></td>
+                                            <td><%= pedido.Descripcion %></td>
+                                            <td><%= pedido.Cantidad_producto %></td>
+                                            <td><%= pedido.Precio_unitario_producto %></td>
+                                            <td><%= pedido.Precio_total_productos %></td>
+                                            <td><%= pedido.Fecha %></td>
+                                            <td><%= pedido.Estatus %></td>
+
+                                            <% if (index === 0) { %>
+                                                <td rowspan="<%= pedidosMismoNumero.length %>">
+                                                    <%= cantidadPagarPorPedido[numeroPedido] %><br>
+                                                </td>
+                                                <td rowspan="<%= pedidosMismoNumero.length %>">
+                                                    <%= pedido.motivo_Cancelacion %>
+                                                </td>
+                                            <% } %>
+                                            <% if (index !== 0) { %>
+                                                </tr>
+                                            <% } %>
+                                        <% }); %>
+                                    <% } %>
+                                </tr>
+                            <% }); %>
+                        </tbody>     
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <%- include('./layout/footer.ejs'); -%>
+</footer>
+</html>

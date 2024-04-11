@@ -1,0 +1,107 @@
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="/assets/images/LOGO5.png">
+    <link rel="stylesheet" href="/assets/css/formulario.css">
+    <title><%= titulo %></title> 
+</head>
+<header>
+    <%- include('./layout/nav.ejs'); %>
+</header>
+
+<header>
+    <%- include('./layout/diseño.ejs'); %>
+</header>
+
+<header>
+    <%- include('./layout/diseñoUsuariosRegistrados.ejs'); %>
+</header>
+<body>
+<div class="cart-section mt-50 mb-50">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-12">
+				<div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Dirección</th>
+                                <th>Edad</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Telefono</th>
+                                <th>Correo electrónico</th>
+                                <th>Rol</th>
+                                <th>Nombre de usuario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% consultar_User.forEach(user => { %>
+                                <tr class="table-head-row">
+                                    <td><%= user.ID_Usuario %></td>
+                                    <td><%= user.Nombre %></td>
+                                    <td><%= user.Apellido %></td>
+                                    <td><%= user.Direccion %></td>
+                                    <td><%= user.Edad %></td>
+                                    <td><%= user.Fecha_nacimiento %></td>
+                                    <td><%= user.Telefono %></td>
+                                    <td><%= user.Correo %></td>
+                                    <td><%= user.Rol %></td>
+                                    <td><%= user.Nombre_usuario %></td>
+                                    <td>
+                                        <a href="/formularioActualizacion?id=<%= user.ID_Usuario %>&nombre=<%= user.Nombre %>&apellido=<%= user.Apellido %>&direccion=<%= user.Direccion %>&edad=<%= user.Edad %>&fechaNacimiento=<%= user.Fecha_nacimiento %>&rol=<%= user.Rol %>">Actualizar</a>
+                                        <a onclick="eliminar(<%= user.ID_Usuario %>)">Borrar</a>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
+        <script>
+        
+            function eliminar(id)
+            {
+                Swal.fire({
+                    title: '¿Quieres eliminar el usuario?',
+                    text: "Si eliminas el registro no podras revertir la accion",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Eliminar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location= '/usuariosRegistrados/'+id;
+                        Swal.fire({
+                            title: "Eliminado!",
+                            text: "El registro ha sido eliminado",
+                            icon: "success",
+                            showConfirmButton: false,
+                            time:3000
+                        });
+                        setTimeout(function(){
+                            window.location= '/usuariosReistrados';
+                        },1000)
+                    }
+                })
+            }
+
+        </script>
+<footer>
+    <%- include('./layout/footer.ejs'); -%>
+</footer>
+</html>
