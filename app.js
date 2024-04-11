@@ -7,7 +7,7 @@ const db = require('./config/db.js')//constante para importar bd
 const multer = require('multer')
 const myConnection = require('express-myconnection');
 const methodOverride = require('method-override');
-const session = require('express-session')
+// const session = require('express-session')
 const { Sequelize } = require('sequelize')
 const env = require('./config/config.js');
 
@@ -18,11 +18,11 @@ app.use(express.urlencoded({extended: true}));
 //Analisis de solicitudes JSON
 app.use(express.json());
 
-app.use(session({
-  secret: 'EdgeSlayer97', // Cambia esto por una cadena aleatoria y segura
-  resave: false,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   secret: 'EdgeSlayer97', // Cambia esto por una cadena aleatoria y segura
+//   resave: false,
+//   saveUninitialized: true
+// }));
 
 //Method-override para solicitudes put y delete
 app.use(methodOverride('_method'));
